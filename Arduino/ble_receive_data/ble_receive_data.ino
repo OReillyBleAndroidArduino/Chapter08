@@ -27,13 +27,12 @@ BLEPeripheral blePeripheral;
 // When data is sent from the client, it is processed here inside a callback
 // it is best to handle the result of this inside the main loop
 void onBleCharacteristicWritten(BLECentral& central, BLECharacteristic &characteristic) {
-  Serial.println("Characteristic written");
   bleDataWritten = true;
   
   bleTransmissionData.uuid = characteristic.uuid();
   bleTransmissionData.length = characteristic.valueLength();
   
-  // Since we are playing with strings, we must use strcpy
+  // Since we are playing with strings, we must use strncpy
   strncpy(bleTransmissionData.data, (char*) characteristic.value(), characteristic.valueLength());
 }
 
